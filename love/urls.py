@@ -20,5 +20,6 @@ from love import views
 urlpatterns = [
     path('',views.one),
     path('one',views.one),
+    path('two',views.two),
 
 ]

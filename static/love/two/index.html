@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="x-key" content="82123b510631dc20da2f7cb3d2e81565"><meta name="screen-orientation" content="portrait">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="format-detection" content="telephone=no, email=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">    
+    <title>2048情侣版</title>
+
+    <script src="api3rd.js"></script>
+    <link rel="stylesheet" href="main.css" />
+</head>
+<body>
+<img src="http://wxsxz117.cc:8080/games/games/2048qinglv/logo.jpg" width="0" height="0"/>
+<img src="wx.jpg" style="position:absolute;left:-1px;top:-1px;width:0px;height:0px;" />
+    <div id="game_2048" class="container">
+        <div class="heading">
+            <h1 class="title">情侣版2048</h1>
+            <div class="scores-container">
+                <div class="score-container">0</div>
+                <div class="best-container">0</div>
+            </div>
+        </div>
+        <div class="above-game">
+            <p class="game-intro">1.情侣版，你懂的。</p>
+            <p class="game-intro">2.执子之手，最后是坟墓吗？努力后就知道了！</p>
+        </div>
+        <div class="game-container">
+            <div class="game-message">
+                <p></p>
+                <div class="lower">
+                    <a class="keep-playing-button">继续</a>
+                    <a class="retry-button">更多游戏</a>
+                </div>
+            </div>
+            <div class="grid-container">
+                <div class="grid-row">
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                </div>
+                <div class="grid-row">
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                </div>
+                <div class="grid-row">
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                </div>
+                <div class="grid-row">
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                    <div class="grid-cell"></div>
+                </div>
+            </div>
+            <div class="tile-container"></div>
+        </div>
+    </div>
+    <div id="bg-gray"></div>
+    <div id="bg-block"></div>
+    <!-- loading start -->
+    <div id="loading">
+        <div id="mark">
+            <div class="bar emtpy-bar"></div>
+            <div class="bar loading-bar"></div>
+        </div>
+    </div>
+    <!-- loading end -->
+    <script src="main.js"></script>
+    <script type="text/javascript">
+        var _my_list = {
+            "0": "单身",
+            "2": "搭讪",
+            "4": "约会",
+            "8": "表白",
+            "16": "恋爱 ",
+            "32": "牵手",
+            "64": "拥抱",
+            "128": "接吻",
+            "256": "XXOO",
+            "512": "订婚",
+            "1024": "结婚",
+            "2048": "平淡",
+            "4096": "永恒"
+        };
+        var _my_mark = {
+            "0": "屌丝你就撸撸睡吧！！",
+            "2": "没个肾6，就不要去搭讪了！",
+            "4": "约会讲究方式方法！和手段！",
+            "8": "让她吃药说明：你早泄！你乱泄！",
+            "16": "约过炮！就能约睡觉！你成功了",
+            "32": "人家有了新炮友！小牙签忍了吧 ",
+            "64": "这是真爱！你对炮友动了情",
+            "128": "恋爱失败！是你犹犹豫豫",
+            "256": "kiss技巧很重要！加油练",
+            "512": "事到如今！这事儿还得你自己",
+            "1024": " 终于等到你！还好我没放弃！",
+            "2048": " 到处秀恩爱！是有风险的！",
+            "4096": "  有情人终会永恒"
+        };
+        var _my_goal = 2048;
+        var _my_win = "恭喜，你们已经幸福小恩爱了";
+        document.body.addEventListener("touchmove", function (i) {
+            event.preventDefault(); // 禁止 iOS 下拉
+        });
+        $().ready(function () {
+            if (androidVersion < 4) {
+                $('head').append("<link rel='stylesheet' href='edb792bf.android2.css'>");
+            }
+            window.requestAnimationFrame(function () {
+                new GameManager(4, KeyboardInputManager, HTMLActuator, LocalStorageManager);
+                endLoading();
+            });
+            $('#game_2048').show();
+        });
+    </script>
+    <script src="common.js"></script>
+    <script type="text/javascript">
+        //数据
+        var _best_score = { "score": "单身", "score_number": 0 };
+        var _game_info = {
+            "id": "2048",
+            "series": "2048",
+            "name": "2048",
+            "summary": "2048智力小游戏",
+            "online": "1",
+            "weight": "0",
+            "fake_score": "a:10:{i:0;i:4;i:1;i:64;i:2;i:128;i:3;i:128;i:4;i:256;i:5;i:512;i:6;i:512;i:7;i:512;i:8;i:1024;i:9;i:2048;}",
+            "share_gameover": "0"
+        };
+        $().ready(function () {
+            //全局初始化
+            globalInit(1);
+        });
+    </script>
+
+	<script>
+		function timeout(){      
+
+		}  
+		setTimeout("timeout()",5000); 
+	</script>
+</body>
+</html>

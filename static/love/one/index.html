@@ -3,6 +3,8 @@
 <!-- Mirrored from oeasy.org/love/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 24 Jul 2018 07:27:02 GMT -->
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title>love-one</title>
 
     <link type="text/css" rel="stylesheet" href="story/default.css">
@@ -67,13 +69,13 @@
         </div>
 
 
-
-
         <div id="clock-box">
-            Zecr<span class="STYLE1">与</span>Cindy<br>
-            <span class="STYLE1">相识：</span>
+            <span style="font-size: 40px;font-weight:bold"> Zecr</span>
+            <span style="font-size: 28px">그리고</span>
+            <span style="font-size: 40px;font-weight:bold">Cindy</span> <br/><br/>
+            <span style="font-size: 28px;">아는 사람：</span>
             <div id="clock"></div>
-            <span class="STYLE1">相爱：</span>
+            <span style="font-size: 28px;">서로 사랑해：</span>
             <div id="clock2"></div>
         </div>
         <canvas id="canvas" width="1100" height="680"></canvas>
@@ -213,20 +215,29 @@
             }
         }));
 
+
         var textAnimate = eval(Jscex.compile("async", function () {
-
-            var together = new Date("2018-05-20 18:00:00");
-            var love = new Date("2018-07-13 20:00:00");
-
             $("#code").show().typewriter();
-            $("#clock-box").fadeIn(500);
+        }));
+        var ClockAnimate = eval(Jscex.compile("async", function () {
+
+            var together = new Date("2018-05-20 18:05:20");
+            var love = new Date("2018-07-13 20:43:00");
+
+
             while (true) {
+                $("#code").fadeOut(1000);
+                $("#clock-box").fadeIn(1000);
                 result = timeElapse(together);
                 $("#clock").html(result);
                 result2 = timeElapse(love);
                 $("#clock2").html(result2);
                 $await(Jscex.Async.sleep(1000));
+
+
             }
+
+
         }));
 
         var runAsync = eval(Jscex.compile("async", function () {
@@ -234,8 +245,10 @@
             $await(growAnimate());
             $await(flowAnimate());
             $await(moveAnimate());
-
             textAnimate().start();
+            $await(Jscex.Async.sleep(68000));
+            ClockAnimate().start();
+
 
             $await(jumpAnimate());
         }));

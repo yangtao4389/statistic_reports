@@ -15,6 +15,7 @@ $(window).resize(function() {
     }
 });
 
+var over_type = false;
 (function($) {
 	$.fn.typewriter = function() {
 		this.each(function() {
@@ -30,6 +31,7 @@ $(window).resize(function() {
 				$ele.html(str.substring(0, progress) + (progress & 1 ? '_' : ''));
 				if (progress >= str.length) {
 					clearInterval(timer);
+					over_type = true;
 				}
 			}, 75);
 		});
@@ -56,7 +58,7 @@ function timeElapse(date){
 		seconds = "0" + seconds;
 	}
 	console.log('days',days,hours,minutes,seconds)
-	var result = "第 <span class=\"digit\">" + days + "</span> 天 <span class=\"digit\">" + hours + "</span> 时 <span class=\"digit\">" + minutes + "</span> 分 <span class=\"digit\">" + seconds + "</span> 秒"; 
+	var result = "<span class=\"digit\">" + days + "</span> 天 <span class=\"digit\">" + hours + "</span> 时 <span class=\"digit\">" + minutes + "</span> 分 <span class=\"digit\">" + seconds + "</span> 秒";
 	return result;
 
 }

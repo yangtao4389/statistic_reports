@@ -1,0 +1,21 @@
+{% include "base/header.html" %}
+{% block style %}{% endblock %}
+<!-- 导航 -->
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+
+        <ul class="breadcrumb">
+            <li><a href="/admin/index/main"><i class="icon icon-home"></i> 首页</a></li>
+            <li><a href="javascript:;">{{ meta_title }} </a></li>
+        </ul>
+
+    </div>
+</div>
+
+{% block body %}{% endblock %}
+
+
+{% include "base/footer.html" %}
+{% block script%}{% endblock %}
+
+

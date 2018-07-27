@@ -1,0 +1,7 @@
+[client]
+host = 211.149.152.172
+port = 3306
+database = rh
+user = root
+password = vPuKSNMUwvV3hMA7
+default-character-set = utf8

@@ -1,0 +1,111 @@
+
+
+
+
+
+
+
+
+
+<html>
+<head>
+<meta name="page-view-size" content="644*534" />
+<title>消费密码校验</title>
+<link href="/resource/css/534/sichuan.css" rel="stylesheet" type="text/css" />
+<link href="/resource/css/534/screenSize.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/resource/js/common.js"></script>
+<script type="text/javascript">
+	var btnuseabled = true;
+	
+	function btndisabled(){
+		btnuseabled = false;
+	}
+	//验证密码
+	function validatePassword() {
+
+		var password = document.getElementById("password").value;
+		var alarm = document.getElementById("account_lock_alarmcode");
+		if (password == "") {
+			alarm.innerHTML = "提示：不能为空";
+			return false;
+		}
+
+		// mod by gaojian3 2014-7-31 
+        // 童锁重置批量新增及修改，调整扩展为4位数字+字母组合（26位字母区分大小写设置）
+		//var partten = /^[0-9]+$/;
+		var partten = /^[0-9a-zA-Z]*$/g;
+		var lenth = password.length;
+		if (!partten.test(password)) {
+			alarm.innerHTML = "提示：只能是数字和字母组合";
+			document.getElementById("password").value = "";
+			document.getElementById("password").focus();
+			return false;
+		}
+		if (lenth!=6 && lenth!=4) {
+			alarm.innerHTML = "提示：请输入4位或6位密码";
+			document.getElementById("password").value = "";
+			document.getElementById("password").focus();
+			return false;
+		}
+		
+		if(btnuseabled){
+			btndisabled();
+			var uri = "/main/sichuan/ordernew/order_accountlock_new.action?model.password=" + password+"&model.platfrom=534&limit100=";
+			window.location.href = uri; 
+		}
+	    
+	}
+
+	function goback() {
+	    var backurl = 'http://182.140.237.75:8300/service/gamemonthhalltwo/month_dx_order_back.do';
+	    var isExtInterface = "false";
+        if(isExtInterface != null && "" != isExtInterface && "true" == isExtInterface){
+	        window.location.href = backurl;
+	    }else{
+			if(btnuseabled){
+				
+				btndisabled();
+				//消费密码输入页面返回
+				var uri = "/main/sichuan/ordernew/check_goback.action?";
+				window.location.href = uri;
+			}
+	    }
+
+	}
+	//遥控器的按钮返回
+	window.document.onkeypress = function(keyEvent) {
+		keyEvent = keyEvent ? keyEvent : window.event;
+		var keyvalue = keyEvent.which ? keyEvent.which : keyEvent.keyCode;
+		if (keyvalue == 0x0008) {
+
+			goback();
+		}
+	}
+</script>
+</head>
+<body onload="initPage('password')" style="background-image: url(/images/sichuan/order/534/accountlock.jpg);">
+	<!-- 提示 -->
+	<div id="account_lock_alarmcode" ></div>
+	
+	<div id="account_lock_inputdiv">
+		<input onblur="inputonblur('account_lock_ok','/images/sichuan/order/534/on_focus.png')" type="password" id="password" name="model.password" class="account_lock_input" name="model.password" maxlength="6" border="0" />
+	</div>
+
+	<!-- 确认 -->
+	<div id="account_lock_ok">
+		<a href="#" onclick="validatePassword()" id="account_lock_ok_a"
+			onfocus="_focus('account_lock_ok','/images/sichuan/order/534/on_focus.png','account_lock_ok_a')"
+			onblur="_blur('account_lock_ok')"> 
+			<img src="/images/btn_trans.gif" width="99" height="51" border="0" />
+		</a>
+	</div>
+	<!-- 返回 -->
+	<div id="account_lock_back">
+		<a href="#" onclick="goback();" id="account_lock_back_a"
+			onfocus="_focus('account_lock_back','/images/sichuan/order/534/on_focus.png','account_lock_back_a')"
+			onblur="_blur('account_lock_back')"> 
+			<img src="/images/btn_trans.gif" width="99" height="51" border="0" />
+		</a>
+	</div>
+</body>
+</html>

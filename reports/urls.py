@@ -15,10 +15,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import *
+from . import views_sichuan,views_tianjing,views
 
 urlpatterns = [
-    path('',index),
+    path('',views.index),
+    path('home/',views.home),
+
+
+    # 四川电信
+    path("sichuan/daily_reports/",views_sichuan.daily_reports),   # 每日数据报表
+    path('sichuan/order_url/',views_sichuan.order_url),  #获取可订购数据
+
+    path("sichuan/video/",views_sichuan.video),
+
+    # 天津
+    path("tianjing/game/",views_tianjing.game),
 
 
 ]

@@ -1,0 +1,68 @@
+{% extends "common/base.html" %}
+{% load div_filter %}
+{% block style %}
+    <link href="/static/reports/js/plugins/datatables/DataTables-1.10.18/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block body %}
+
+    <div class="row">
+        <div class="col-lg-12">
+            {% include "common/searchbar.html" %}
+
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-lg-12">
+
+            <section class="panel general">
+                <div class="panel-heading tab-bg-dark-navy-blue">
+                    <ul class="nav nav-tabs">
+
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active">
+
+                            <table class="table user-list table-hover table-bordered" id="sample_2">
+
+
+                                <thead>
+                                <tr>
+                                    {% for field in list_field %}
+                                        <th><span>{{ fielddic|get_value_by_key:field }}</span></th>
+                                    {% endfor %}
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for dict_item in list_field_content %}
+                                    <tr>
+                                        {% for field in list_field %}
+                                            <td><span>{{ dict_item|get_value_by_key:field }}</span></td>
+                                        {% endfor %}
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+{% block script %}
+    <script src="/static/reports/js/plugins/datatables/DataTables-1.10.18/js/jquery.dataTables.js"></script>
+    <script src="/static/reports/js/plugins/datatables/DataTables-1.10.18/js/dataTables.bootstrap.js"></script>
+    <script>
+     $('#sample_2').DataTable();
+    </script>
+{% endblock %}

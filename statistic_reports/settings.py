@@ -86,12 +86,20 @@ DATABASES = {
     #     'HOST': '211.149.152.172', #正式
     #     'PORT': '3306',
     # },
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'renhe',
+    #     'USER': 'root',
+    #     'PASSWORD': 'rhax-1234',
+    #     'HOST': '211.149.180.119', #测试
+    #     'PORT': '3306',
+    # }
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'renhe',
+        'NAME': 'baobiao',
         'USER': 'root',
-        'PASSWORD': 'rhax-1234',
-        'HOST': '211.149.180.119', #测试
+        'PASSWORD': 'root',
+        'HOST': '127.0.0.1', #本地
         'PORT': '3306',
     }
 }
@@ -117,15 +125,18 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
+LANGUAGE_CODE = 'zh-hans'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
-USE_L10N = True
+USE_L10N = False
 
 USE_TZ = False
+
+# 日期格式设置
+DATE_FORMAT = 'Y-m-d'
+DATETIME_FORMAT = 'Y-m-d H:i:s'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/

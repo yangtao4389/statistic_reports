@@ -1,0 +1,417 @@
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="page-view-size" content="1280*720" />
+<title>确认页面</title>
+</head>
+<style type="text/css">
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #000000;
+	font-family: "Microsoft YaHei",微软雅黑,Arial,Helvetica, sans-serif;
+}
+
+a {
+	text-decoration: none;
+	font-size:12px;
+	color: #FFFFFF;
+}
+
+#mainContainer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 1280px;
+	height: 720px;
+	background-image: none;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+</style>
+<script type="text/javascript">
+
+	if (typeof iPanel !== 'undefined') {
+		iPanel.defaultalinkBgColor = "#FFFFFF"; //设置文字链接焦点颜色
+		iPanel.defaultFocusColor = "#FFFFFF"; //设置图片链接焦点颜色
+		iPanel.focusWidth = "0";
+	}
+
+	// 焦点行为配置
+	var focusActionMap = {
+		'defalut' : {
+			'item1': {
+				'down': 'back',
+				'right': 'back',
+				'ok': 'javascript:order(0);'
+			},
+			'back': {
+				'up': 'item1',
+				'left': 'item1',
+				'ok': 'javascript:goBack();'
+			}
+		},
+		'voucher' : {
+			'item1': {
+				'down': 'back',
+				'right': 'quan',
+				'ok': 'javascript:order(0);'
+			},
+			'quan': {
+				'down': 'back',
+				'left': 'item1',
+				'right': 'back',
+				'ok': 'javascript:orderWithVoucher();'
+			},
+			'back': {
+				'up': 'item1',
+				'left': 'item1',
+				'ok': 'javascript:goBack();'
+			}
+		},
+		'education_or_music' : {
+			'item1': {
+				'down': 'back',
+				'right': 'back',
+				'ok': 'javascript:order(0);'
+			},
+			'item2': {
+				'down': 'back',
+				'left': 'item1',
+				'right': 'back',
+				'ok': 'javascript:order(2);'
+			},
+			'back': {
+				'up': 'item1',
+				'left': 'item1',
+				'ok': 'javascript:goBack();'
+			}
+		}
+	};
+
+	var isOperating = false;
+	var focusAction;
+	var focusList;
+	var focusId;
+
+	var productConfig = {"optFlag":"GAME","id":364,"modTime":"2018-08-09 18:48:58","secondPicPath":"/images/sichuan/ordernew/game_bg_second.png","firstPicPath":"/images/sichuan/ordernew/game_bg_first.png","firstFocus":"item1","productID":"123307001200000918289","secondFocus":"back","isUpdate":"","addTime":"2018-08-09 18:48:58"};
+
+	var productName = '好玩乐园(25元/月)';
+	var price = '2500';
+	var productID = '123307001200000918289';
+	//var productID = '123307001200000918289';
+	var productChargingType = 0;
+	var optFlag = 'GAME';
+	var batch = '-1';
+	var order_img_url = '';
+
+	function onloadHandler() {
+		// 背景图
+		if (productConfig.firstPicPath) {
+			$$('mainContainer').style.backgroundImage = 'url(' + productConfig.firstPicPath + ')';
+		}
+
+		// 名称
+		if(optFlag == 'GAME'){
+			$$('productName').innerHTML = productName;
+		}else if(optFlag == 'LIVE'){
+			$$('productName').innerHTML = productName;
+		}else if(optFlag == 'READING'){
+			$$('productName').innerHTML = productName;
+		}else if(optFlag == 'KALAOK' && productID != '600059990001'){
+			// 非音乐畅享包
+			$$('productName').innerHTML = productName;
+		}
+
+		// 价格
+		var priceDis = (price / 100).toFixed(2) + '元';
+		$$("div_price").innerHTML = priceDis;
+
+		// 计费类型
+		if(productChargingType == '0'){
+			var chargeType =  '包月';
+		}else if(productChargingType == '1'){
+			var chargeType =  '单次';
+		}else if(productChargingType == '2'){
+			var chargeType =  '包年';
+		}
+
+		if(optFlag == 'GAME'){
+			$$("chargeType").innerHTML = chargeType;
+		}else if(optFlag == 'LIVE'){
+			$$("chargeType").innerHTML = chargeType;
+		}else if(optFlag == 'READING'){
+			$$("chargeType").innerHTML = chargeType;
+		}else if(optFlag == 'KALAOK'){
+			$$("chargeType").innerHTML = chargeType;
+		}else if(optFlag == 'EDUCATION'){
+			$$("chargeType").innerHTML = chargeType;
+		}
+
+		// 临时方案：音乐包月、教育包月、少儿包月 时,额外显示 包年产品
+		// TODO
+		if(productID == '600059990001' || productID == '600049990001'/* || productID == '600049980001'*/){
+			$$("div_price2").innerHTML = '299.00元';
+			$$("chargeType2").innerHTML = '包年';
+		}
+
+		//batch = '201801130001';
+		if(batch != '-1'){
+			// 有可用的支付券
+			focusAction = 'voucher';
+			focusList = focusActionMap[focusAction || 'defalut'];
+			// 默认在支付券上
+			setFocus('quan');
+
+			document.getElementById('quan').style.backgroundImage = "url('" + order_img_url + "')";
+		}else if(productID =='600059990001' || productID =='600049990001'/* || productID == '600049980001'*/){
+			// 音乐包月 或 教育包月
+			focusAction = 'education_or_music';
+			focusList = focusActionMap[focusAction || 'defalut'];
+			// document.getElementById('item2').style.display = "block";//299下线需求，暂时隐藏包年
+			setFocus('item1');
+		}else{
+			focusList = focusActionMap[focusAction || 'defalut'];
+			// 默认光标
+			setFocus(productConfig.firstFocus || 'item1');
+		}
+
+		window.document.onkeypress = mainKeyPressHandler;
+	}
+
+	function goBackFrom(){
+		var forwardURL = 'http://182.140.237.75:8300/service/gamemonthhalltwo/month_dx_order_back.do';
+
+		if(forwardURL.substr(0,7) == 'http%3A'){
+			forwardURL = decodeURIComponent(forwardURL);
+		}
+
+		var a = forwardURL.indexOf("?");
+	    if (a >= 0)
+	    {
+	        forwardURL = forwardURL + "&INFO=";
+	    } else
+	    {
+	        forwardURL = forwardURL + "?INFO=";
+	    }
+
+	    window.location.href = forwardURL + "<transactionID>2312042120180809182502185739</transactionID><result>9681</result><description>放弃订购</description>";
+	    //history.go(-1);
+	}
+
+	function goBackPlay(){
+		var forwardURL = 'http://182.140.237.75:8300/service/gamemonthhalltwo/month_dx_order_back.do';
+
+	    window.location.href = forwardURL;
+	    //history.go(-1);
+	}
+
+	function goBack() {
+		if(isOperating){
+			return;
+		}
+		isOperating = true;
+
+		var backPlayFlag = 'null';
+		if(backPlayFlag == "playFlay"){
+			goBackPlay();
+		}else{
+			goBackFrom();
+		}
+	}
+
+	function order(type) {
+		if(isOperating){
+			return;
+		}
+
+		isOperating = true;
+		if(optFlag == 'KALAOK' && productID == '600059990001' ){
+			if(type==2){//0：包月  2：包年  type表示是点击订购的是包年还是包月
+				productID = "600059990002";
+				price = "29900";
+			}
+		}
+		if(optFlag == 'EDUCATION' && productID == '600049990001'){
+			if(type==2){//0：包月  2：包年  type表示是点击订购的是包年还是包月
+				productID = "600049990002";
+				price = "29900";
+			}
+		}
+		if(optFlag == 'BABY' && productID == '600049980001'){
+			if(type==2){//0：包月  2：包年  type表示是点击订购的是包年还是包月
+				productID = "600049980002";
+				price = "29900";
+			}
+		}
+
+		if(productID == '600059990001' || productID == '600059990002'){
+			// 音乐畅享包 包月、包年
+			productName = '音乐频道畅享包';
+		}
+		if(productID == '600049990001' || productID == '600049990002'){
+			// 教育畅享包 包月、包年
+			productName = '教育频道畅享包';
+		}
+		if(productID == '600049980001' || productID == '600049980002'){
+			// 教育畅享包 包月、包年
+			productName = '少儿畅享包';
+		}
+
+		//window.location.href = "/main/sichuan/order/order_intial.action";
+		document.forms[0].useVoucherFlag.value = false;
+		document.forms[0].productID.value = productID;
+		document.forms[0].productName.value = productName;
+		document.forms[0].price.value = price;
+		document.forms[0].submit();
+	}
+
+	function orderWithVoucher() {
+		if(isOperating){
+			return;
+		}
+		isOperating = true;
+
+		document.forms[0].useVoucherFlag.value = true;
+		document.forms[0].productID.value = productID;
+		document.forms[0].productName.value = productName;
+		document.forms[0].price.value = price;
+		document.forms[0].submit();
+	}
+
+	function mainKeyPressHandler(keyEvent) {
+		keyEvent = keyEvent ? keyEvent : window.event;
+		var keyCode = keyEvent.which ? keyEvent.which : keyEvent.keyCode;
+
+		switch (keyCode) {
+			case 37:
+			case 97:
+				if (focusList[focusId] && focusList[focusId]['left']) {
+					var tarFocusId = focusList[focusId]['left'];
+					setFocus(tarFocusId);
+				}
+				break;
+			case 38:
+			case 119:
+				if (focusList[focusId] && focusList[focusId]['up']) {
+					var tarFocusId = focusList[focusId]['up'];
+					setFocus(tarFocusId);
+				}
+				break;
+			case 39:
+			case 100:
+				if (focusList[focusId] && focusList[focusId]['right']) {//299活动下线，不会移动到此位置
+					var tarFocusId = focusList[focusId]['right'];
+					setFocus(tarFocusId);
+				}
+				break;
+			case 40:
+			case 115:
+				if (focusList[focusId] && focusList[focusId]['down']) {
+					var tarFocusId = focusList[focusId]['down'];
+					setFocus(tarFocusId);
+				}
+				break;
+			case 13:
+				if (focusList[focusId] && focusList[focusId]['ok']) {
+					window.location.href = focusList[focusId]["ok"];
+				}
+				break;
+			case 8:
+				goBack();
+				break;
+			default:
+				break;
+		}
+	}
+
+	// 改变焦点
+	function setFocus(newFocusId) {
+		var newBgEle = $$(newFocusId + '_shadow');
+
+		if(!newBgEle){
+			return;
+		}
+
+		var oldBgEle = $$(focusId + "_shadow");
+		if(oldBgEle){
+			oldBgEle.style.display = 'none';
+		}
+
+		if(newBgEle){
+			newBgEle.style.display = '';
+
+			focusId = newFocusId;
+		}
+	}
+
+	// 读取element
+	function $$(id){
+		return document.getElementById(id);
+	}
+
+</script>
+<body onload="onloadHandler()">
+
+	<form id="orderfirst" name="orderfirst" action="/main/sichuan/ordernew/order_intial.action" method="post">
+	    <input type="hidden" name="useVoucherFlag" id="useVoucherFlag" value="" />
+	    <input type="hidden" name="productID" id="productID" value="" />
+	    <input type="hidden" name="productName" id="productName_input" value="" />
+	    <input type="hidden" name="price" id="price" value="" />
+	</form>
+
+	<!-- 页面内容 -->
+	<div id="mainContainer">
+
+		<!-- 产品名称 -->
+		<div id="productName" style="position: absolute;left: 122px; top: 206px; width: 930px; font-size: 18px; color: #60032B; font-weight: bold;"></div>
+
+		<div id="product" align="left" style="left: 243px; top: 248px; position: absolute;">
+			<img src="/images/sichuan/ordernew/product.png" width="208" height="120" border="0" />
+			<!-- 产品价格 -->
+			<div id="div_price" style="position: absolute;left: 12px; top: 45px; font-size: 28px; color: white; width: 150px; text-align: center;"></div>
+			<!-- 计费类型 -->
+			<div id="chargeType" style="position: absolute; left: 172px; top: 27px; width: 24px; font-size: 24px; color: #ca3f7f;"></div>
+		</div>
+
+		<!-- 产品Block -->
+		<div id="item1_shadow" align="left" style="left: 231px; top: 232px; position: absolute; display: none;">
+			<img src="/images/sichuan/ordernew/item_shadow.png" width="193" height="146" border="0" />
+		</div>
+
+		<!--包年按钮，这里隐藏掉了-->
+		<div id="item2" style="position: absolute; left: 540px; top: 249px; width: 201px; height: 119px; background-repeat: no-repeat; background-size: 100% 100%; background-image: url('/images/sichuan/ordernew/bg_item.png'); display: none;">
+			<!-- 产品价格 -->
+			<div id="div_price2" style="position: absolute; left: 6px; top: 45px; font-size: 28px; color: white; width: 150px; text-align: center;"></div>
+			<!-- 计费类型 -->
+			<div id="chargeType2" style="position: absolute; left: 165px; top: 27px; width: 24px; font-size: 24px; color: #ca3f7f;"></div>
+
+			<div id="item2_shadow" style="position: absolute; left: -16px; top: -16px; width: 193px; height: 146px; background-repeat: no-repeat; background-size: 100% 100%; background-image: url('/images/sichuan/ordernew/item_shadow.png'); display: none;"></div>
+		</div>
+
+		<!-- 支付券 -->
+		<div id="quan_shadow" style="position: absolute; left: 468px; top: 216px; width: 275px; height: 182px; background-repeat: no-repeat; background-size: 100% 100%; background-image: url('/images/sichuan/wallet/new2/fullquan_shadow.png'); display: none;"></div>
+		<div id="quan" style="position: absolute; left: 480px; top: 212px; width: 251px; height: 199px; background-repeat: no-repeat; background-size: 100% 100%; background-image: url('');"></div>
+
+		<!-- 返回 -->
+		<div id="back_shadow" align="left" style="left: 920px; top: 572px; position: absolute; display: none;">
+			<img src="/images/sichuan/ordernew/back_shadow.png" width="192" height="106" border="0" />
+		</div>
+
+	</div>
+
+</body>
+</html>

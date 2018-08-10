@@ -1,0 +1,123 @@
+<script src="/static/reports/js/layui/laydate/laydate.js"></script>
+<script type="text/javascript" src="/static/reports/js/plugins/tableExport/tableExport.min.js"></script>
+
+<div class="form-inline">
+    <form method="get" role="form">
+
+        {% for field in searchbar %}
+            {% if  field.type == 'hidden' %}
+                <input type="hidden" name="{{ field.name }}" value="{$param[$field['name']]|default=''}"/>
+            {% endif %}
+            <div class="form-group">
+                {% if field.type  == 'readonly' %}
+                    <input type="text" class="form-control" placeholder="{$title}" name="{$field}" id="{$field}"
+                           value="{{ field.value }}" autocomplete="false" readonly>
+
+                {% elif  field.type == 'num' %}
+                    <label for="">{{ field.label }}</label>
+                    <input type="text" style="width: auto;" placeholder="{$title}" class="form-control" name="{{ field.name }}"
+                           id="{{ field.name }}" autocomplete="false" value="{{ field.value }}">
+
+                {% elif  field.type == 'decimal' %}
+                    <input type="text" style="width: auto;" class="form-control" name="{$field}" id="{$field}"
+                           autocomplete="false" value="{$value}">
+
+                {% elif  field.type == 'text' %}
+                    <input type="text" class="form-control" placeholder="{$title}" name="{$field}" id="{$field}"
+                           autocomplete="false" value="{$value}">
+
+                {% elif  field.type == 'password' %}
+                    <input type="password" class="form-control" placeholder="{$title}" name="{$field}" id="{$field}"
+                           autocomplete="false" value="{$value}">
+
+                {% elif  field.type == 'textarea' %}
+                    <textarea class="form-control" name="{$field}" id="{$field}">{$value}</textarea>
+
+                {% elif  field.type == 'select' %}
+                    <select class="form-control" name="{{ field.value }}" id="{{ field.value }}" style="width:auto;">
+                        {% for item in field.option %}
+                            <option value="{{ item.value }}" {% if field.current_value == item.value %}
+                                    selected
+                            {% endif %} >{{ item.name }}</option>
+                        {% endfor %}
+
+                        {#                        {volist name="option" id="item"}#}
+                        {#                        <option value="{$key}" {if $value !=='' && $key== $value}selected{#}
+                        {#                        /if}>{$item}</option>#}
+                        {#                        {/volist}#}
+                    </select>
+
+                {% elif  field.type == 'bool' %}
+                    <select class="form-control" name="{$field}" id="{$field}" style="width:auto;">
+                        {volist name="option" id="item"}
+                        {#                        <option value="{$key}" {if condition="$key eq $value" }selected{#}
+                        {#                        /if}>{$item}</option>#}
+                        {/volist}
+                    </select>
+
+                {% elif  field.type == 'bind' %}
+                    <select class="form-control" name="{$field}" id="{$field}" style="width:auto;">
+                        {volist name="option" id="item"}
+                        {#                        <option value="{$key}" {if $key== $value} selected /if}>{$item}</option>#}
+                        {/volist}
+                    </select>
+
+                {% elif field.type == 'date' %}
+                    <label for="">{{ field.label }}</label>
+                    <input class="form-control test-item" name="{{ field.name }}" value="{{ field.value }}"
+                           style="width:auto; " readonly
+                           type="text">
+
+                    <script>
+                        //执行一个laydate实例
+                        lay('.test-item').each(function () {
+                            laydate.render({
+                                elem: this
+                                , trigger: 'click'
+                                , max: 0
+                                , theme: '#393D49'
+                            });
+                        });
+                    </script>
+                {% elif field.type == 'datetime' %}
+                    <label for="">{{ field.label }}</label>
+                    <input class="form-control datetime-item" name="{{ field.name }}" value="{{ field.value }}"
+                           style="width:auto; " readonly
+                           type="text">
+
+                    <script>
+                        //执行一个laydate实例
+                        //日期时间选择器
+                        //时间选择器
+                        lay('.datetime-item').each(function () {
+                            laydate.render({
+                                elem: this
+                                , type: 'datetime'
+                                , max: 1
+                            });
+                        });
+                    </script>
+
+
+                {% endif %}
+            </div>
+        {% endfor %}
+
+
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">Query</button>
+        </div>
+
+        {% if tableExport == 'true' %}
+            <div class="form-group">
+                <button type="button" id="download" style="margin-left:0px" data-table=".tab-content"
+                        class="btn btn-primary"
+                        onClick="$('.tab-content').tableExport({ type: 'excel', escape: 'false' })">数据导出
+                </button>
+            </div>
+        {% endif %}
+
+    </form>
+</div>
+
+

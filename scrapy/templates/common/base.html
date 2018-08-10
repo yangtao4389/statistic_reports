@@ -1,0 +1,28 @@
+{% include "common/header.html" %}
+{% block style %}{% endblock %}
+<!-- 导航 -->
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+
+{#        <ul class="breadcrumb">#}
+{#            <li><a href="/admin/index/main"><i class="icon icon-forward"></i> {{ big_title }}</a></li>#}
+{#            <li><a href="javascript:;">{{ meta_title }} </a></li>#}
+{#        </ul>#}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+
+    <li class="breadcrumb-item"><a href="#">{{ big_title }}</a></li>
+    <li class="breadcrumb-item"><a href="#">{{ meta_title }}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">报表</li>
+  </ol>
+</nav>
+    </div>
+</div>
+
+{% block body %}{% endblock %}
+
+
+{% include "common/footer.html" %}
+{% block script%}{% endblock %}
+
+

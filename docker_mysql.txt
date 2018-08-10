@@ -1,0 +1,13 @@
+docker pull mysql:5.6
+
+docker run -p 12345:3306 --name mysql
+-v /home/docker_example/mysql/conf:/etc/mysql/conf.d
+-v /home/docker_example/mysql/logs:/logs
+-v /home/docker_example/mysql/data:/var/lib/mysql
+-e MYSQL_ROOT_PASSWORD=123456
+-d
+mysql:5.6
+
+
+上面的列为一行为：
+docker run -p 12345:3306 --name mysql -v /home/docker_example/mysql/conf:/etc/mysql/conf.d -v /home/docker_example/mysql/logs:/logs -v /home/docker_example/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.6

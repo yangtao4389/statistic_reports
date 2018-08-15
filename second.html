@@ -10,102 +10,106 @@
 <html>
 <head>
 <meta name="page-view-size" content="644*534" />
-<title>消费密码校验</title>
+<title>超出100限额提醒</title>
 <link href="/resource/css/534/sichuan.css" rel="stylesheet" type="text/css" />
 <link href="/resource/css/534/screenSize.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="/resource/js/common.js"></script>
 <script type="text/javascript">
-	var btnuseabled = true;
-	
-	function btndisabled(){
-		btnuseabled = false;
+	window.document.onkeypress = function(keyEvent)
+	{
+	    keyEvent = keyEvent ? keyEvent : window.event;
+	    var keyvalue = keyEvent.which ? keyEvent.which : keyEvent.keyCode;
+	    if( keyvalue == 0x0008 )
+	    {
+	        //window.location=epgdomain;
+	        beforepage();
+	    }
 	}
-	//验证密码
-	function validatePassword() {
-
-		var password = document.getElementById("password").value;
-		var alarm = document.getElementById("account_lock_alarmcode");
-		if (password == "") {
-			alarm.innerHTML = "提示：不能为空";
-			return false;
-		}
-
-		// mod by gaojian3 2014-7-31 
-        // 童锁重置批量新增及修改，调整扩展为4位数字+字母组合（26位字母区分大小写设置）
-		//var partten = /^[0-9]+$/;
-		var partten = /^[0-9a-zA-Z]*$/g;
-		var lenth = password.length;
-		if (!partten.test(password)) {
-			alarm.innerHTML = "提示：只能是数字和字母组合";
-			document.getElementById("password").value = "";
-			document.getElementById("password").focus();
-			return false;
-		}
-		if (lenth!=6 && lenth!=4) {
-			alarm.innerHTML = "提示：请输入4位或6位密码";
-			document.getElementById("password").value = "";
-			document.getElementById("password").focus();
-			return false;
-		}
-		
-		if(btnuseabled){
-			btndisabled();
-			var uri = "/main/sichuan/ordernew/order_accountlock_new.action?model.password=" + password+"&model.platfrom=534&limit100=";
-			window.location.href = uri; 
-		}
-	    
+	function goback(){
+		window.location.href = "/main/sichuan/ordernew/order_intial.action?model.transactionID=2312042120180815144041486666"
+    		+"&model.SPID=23120421&model.userId=DZADSL77125770@ITV"
+    		+"&model.userToken=YL5ojOrNC0qXu7mhO_xm2O4147017180"
+    		+"&model.key=4:2&model.productID=123307001200000918289"
+    		+"&model.price=2500"
+    		//+"&model.productName=" + productName + "&model.backurl=" + backurl
+    		+"&model.optFlag=GAME&model.backFlag=errorback&model.platfrom=534";
 	}
-
-	function goback() {
+	function beforepage(){
 	    var backurl = 'http://182.140.237.75:8300/service/gamemonthhalltwo/month_dx_order_back.do';
 	    var isExtInterface = "false";
         if(isExtInterface != null && "" != isExtInterface && "true" == isExtInterface){
 	        window.location.href = backurl;
 	    }else{
-			if(btnuseabled){
-				
-				btndisabled();
-				//消费密码输入页面返回
-				var uri = "/main/sichuan/ordernew/check_goback.action?";
-				window.location.href = uri;
-			}
+			window.location.href = "/main/sichuan/ordernew/order_first.action?model.transactionID=2312042120180815144041486666"
+    		+"&model.SPID=23120421&model.userId=DZADSL77125770@ITV"
+    		+"&model.userToken=YL5ojOrNC0qXu7mhO_xm2O4147017180"
+    		+"&model.key=4:2&model.productID=123307001200000918289"
+    		+"&model.price=2500"
+    		//+"&model.productName=" + productName + "&model.backurl=" + backurl
+    		+"&model.optFlag=GAME&model.backFlag=errorback&model.platfrom=534";
 	    }
-
 	}
-	//遥控器的按钮返回
-	window.document.onkeypress = function(keyEvent) {
-		keyEvent = keyEvent ? keyEvent : window.event;
-		var keyvalue = keyEvent.which ? keyEvent.which : keyEvent.keyCode;
-		if (keyvalue == 0x0008) {
-
-			goback();
-		}
+	var phoneval = "";
+	//之前已消费总额
+	var currentAmount = "2000";
+	var limitation = "4500";
+	var limitValue = "3000";
+	function limitsmsverify(){
+		//modify by tanglixu 在童锁密码校验失败之后才短信通知
+	   if(phoneval==''){
+	        window.location.href = "/main/sichuan/ordernew/limit_sms_verify.action?model.userId=DZADSL77125770@ITV&model.platfrom=534";
+	    }else if(parseInt(currentAmount)<parseInt(limitValue)&&parseInt(limitation)>=parseInt(limitValue)){
+	    	window.location.href = "/main/sichuan/ordernew/limit_sms_verify.action?model.userId=DZADSL77125770@ITV&model.platfrom=534";
+	    }else{
+	        var isExtInterface = "false";
+		    if(isExtInterface!=null && "true"==isExtInterface){
+		        //window.location.href = "http://182.140.237.75:8300/service/gamemonthhalltwo/month_dx_order_back.do";
+		        //window.location.href = "/main/sichuan/ordernew/limit_100_result.action?model.userId=DZADSL77125770@ITV&model.platfrom=534&limit100=";
+		        window.location.href = "/main/sichuan/ordernew/order_intial.action?model.userId=DZADSL77125770@ITV&model.platfrom=534&limit100=true&model.isExtInterface="+isExtInterface;
+		    }else{
+		        window.location.href = "/main/sichuan/ordernew/order_intial.action?model.platfrom=534&limit100=true";
+		    }
+	    }
+	    
+	    //window.location.href = "/main/sichuan/ordernew/order_accountlock_later.action?model.userId=DZADSL77125770@ITV";
 	}
+	function getPwd(){
+	    
+	    document.getElementById("pwddiv").style.display="";
+	}
+	
 </script>
 </head>
-<body onload="initPage('password')" style="background-image: url(/images/sichuan/order/534/accountlock.jpg);">
-	<!-- 提示 -->
-	<div id="account_lock_alarmcode" ></div>
-	
-	<div id="account_lock_inputdiv">
-		<input onblur="inputonblur('account_lock_ok','/images/sichuan/order/534/on_focus.png')" type="password" id="password" name="model.password" class="account_lock_input" name="model.password" maxlength="6" border="0" />
-	</div>
 
-	<!-- 确认 -->
-	<div id="account_lock_ok">
-		<a href="#" onclick="validatePassword()" id="account_lock_ok_a"
-			onfocus="_focus('account_lock_ok','/images/sichuan/order/534/on_focus.png','account_lock_ok_a')"
-			onblur="_blur('account_lock_ok')"> 
-			<img src="/images/btn_trans.gif" width="99" height="51" border="0" />
+
+	<body onload="initPage('limit_amount_ok_a')" style="background-image: url(/images/sichuan/order/534/limit100_nobind_bg1.png);">
+	<div id="limit_amount_100">
+	 	<font id="pPrice"></font>
+	</div>
+	
+	<!--是-->
+	<div id="limit_amount_ok">
+		<a href="#" onclick="limitsmsverify();" id="limit_amount_ok_a"
+			onfocus="_focus('limit_amount_ok','/images/sichuan/order/534/on_focus.png','limit_amount_ok_a')"
+			onblur="_blur('limit_amount_ok')"> 
+			<img src="/images/btn_trans.gif"  border="1" />
+		 </a>
+	</div>
+	
+	<!--否-->
+	<div id="limit_amount_no">
+		<a href="#" onclick="beforepage();" id="limit_amount_no_a"
+			onfocus="_focus('limit_amount_no','/images/sichuan/order/534/on_focus.png','limit_amount_no_a')"
+			onblur="_blur('limit_amount_no')">
+			<img src="/images/btn_trans.gif"  border="0" />
 		</a>
 	</div>
-	<!-- 返回 -->
-	<div id="account_lock_back">
-		<a href="#" onclick="goback();" id="account_lock_back_a"
-			onfocus="_focus('account_lock_back','/images/sichuan/order/534/on_focus.png','account_lock_back_a')"
-			onblur="_blur('account_lock_back')"> 
-			<img src="/images/btn_trans.gif" width="99" height="51" border="0" />
-		</a>
-	</div>
+	
 </body>
-</html>
+<script type="text/javascript">
+//modify by tanglixu:用户当月累计消费金额不含当前待订购产品的金额。如，用户当月已消费100元，当前发起订购的产品的金额29元。那么，参与消费限额判断的只有100元，不含当前29元。
+//document.getElementById("pPrice").innerHTML = 4500/100;
+document.getElementById("pPrice").innerHTML = 2000/100;
+
+</script>
+</html>

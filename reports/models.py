@@ -57,7 +57,7 @@ class Menu(models.Model):
 
 
 class CanOrderInfo(models.Model):
-    c_userid = models.CharField('用户id',max_length=128, null=False)
+    c_userid = models.CharField('用户id',max_length=128, null=False,unique=True)
     product_id = models.CharField(max_length=128,null=True)
     order_url = models.CharField(max_length=1280, null=False, default='')
     add_time = models.DateTimeField('用户发起订购时间',null=True)

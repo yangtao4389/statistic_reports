@@ -1,0 +1,109 @@
+rh ERROR 2018-08-15 14:24:05,024 views_sichuan order_url 175 可订购数量为：0
+rh ERROR 2018-08-15 14:24:05,897 views_sichuan order_url 175 可订购数量为：0
+rh ERROR 2018-08-15 14:24:06,122 views_sichuan order_url 175 可订购数量为：0
+rh INFO 2018-08-15 15:05:29,431 views_sichuan order_url 175 可订购数量为：0
+rh INFO 2018-08-15 15:05:30,944 views_sichuan order_url 175 可订购数量为：0
+rh INFO 2018-08-15 15:05:45,173 views_sichuan order_url 175 可订购数量为：0
+rh INFO 2018-08-15 15:05:51,580 views_sichuan order_url 175 可订购数量为：0
+rh INFO 2018-08-15 15:06:34,992 views_sichuan order_url 175 可订购数量为：23
+rh INFO 2018-08-15 15:06:40,620 views_sichuan order_url 175 可订购数量为：23
+rh INFO 2018-08-15 15:08:26,089 views_sichuan order_url 175 可订购数量为：15
+rh INFO 2018-08-15 15:08:51,973 views_sichuan order_url 175 可订购数量为：13
+rh ERROR 2018-08-15 15:30:12,559 exception handle_uncaught_exception 118 Internal Server Error: /reports/sichuan/order_url/
+Traceback (most recent call last):
+  File "F:\Program Files (x86)\python3\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "F:\Program Files (x86)\python3\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "F:\Program Files (x86)\python3\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\yangtao\python_learn\statistic_reports\reports\views_sichuan.py", line 172, in order_url
+    print(1/0)
+ZeroDivisionError: division by zero
+rh ERROR 2018-08-15 15:30:18,689 exception handle_uncaught_exception 118 Internal Server Error: /reports/sichuan/order_url/
+Traceback (most recent call last):
+  File "F:\Program Files (x86)\python3\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "F:\Program Files (x86)\python3\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "F:\Program Files (x86)\python3\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\yangtao\python_learn\statistic_reports\reports\views_sichuan.py", line 172, in order_url
+    print(1/0)
+ZeroDivisionError: division by zero
+rh ERROR 2018-08-15 15:30:36,805 exception handle_uncaught_exception 118 Internal Server Error: /reports/sichuan/order_url/
+Traceback (most recent call last):
+  File "F:\Program Files (x86)\python3\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "F:\Program Files (x86)\python3\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "F:\Program Files (x86)\python3\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\yangtao\python_learn\statistic_reports\reports\views_sichuan.py", line 172, in order_url
+    print(1/0)
+ZeroDivisionError: division by zero
+rh ERROR 2018-08-15 15:30:39,422 exception handle_uncaught_exception 118 Internal Server Error: /reports/sichuan/order_url/
+Traceback (most recent call last):
+  File "F:\Program Files (x86)\python3\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "F:\Program Files (x86)\python3\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "F:\Program Files (x86)\python3\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\yangtao\python_learn\statistic_reports\reports\views_sichuan.py", line 172, in order_url
+    print(1/0)
+ZeroDivisionError: division by zero
+rh ERROR 2018-08-15 15:30:40,528 exception handle_uncaught_exception 118 Internal Server Error: /reports/sichuan/order_url/
+Traceback (most recent call last):
+  File "F:\Program Files (x86)\python3\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "F:\Program Files (x86)\python3\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "F:\Program Files (x86)\python3\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\yangtao\python_learn\statistic_reports\reports\views_sichuan.py", line 172, in order_url
+    print(1/0)
+ZeroDivisionError: division by zero
+rh ERROR 2018-08-15 15:30:41,399 exception handle_uncaught_exception 118 Internal Server Error: /reports/sichuan/order_url/
+Traceback (most recent call last):
+  File "F:\Program Files (x86)\python3\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "F:\Program Files (x86)\python3\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "F:\Program Files (x86)\python3\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\yangtao\python_learn\statistic_reports\reports\views_sichuan.py", line 172, in order_url
+    print(1/0)
+ZeroDivisionError: division by zero
+rh ERROR 2018-08-15 15:30:42,685 exception handle_uncaught_exception 118 Internal Server Error: /reports/sichuan/order_url/
+Traceback (most recent call last):
+  File "F:\Program Files (x86)\python3\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "F:\Program Files (x86)\python3\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "F:\Program Files (x86)\python3\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\yangtao\python_learn\statistic_reports\reports\views_sichuan.py", line 172, in order_url
+    print(1/0)
+ZeroDivisionError: division by zero
+rh ERROR 2018-08-15 15:30:48,443 exception handle_uncaught_exception 118 Internal Server Error: /reports/sichuan/order_url/
+Traceback (most recent call last):
+  File "F:\Program Files (x86)\python3\lib\site-packages\django\core\handlers\exception.py", line 35, in inner
+    response = get_response(request)
+  File "F:\Program Files (x86)\python3\lib\site-packages\django\core\handlers\base.py", line 128, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "F:\Program Files (x86)\python3\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\yangtao\python_learn\statistic_reports\reports\views_sichuan.py", line 172, in order_url
+    print(1/0)
+ZeroDivisionError: division by zero
+rh INFO 2018-08-15 15:31:22,180 views_sichuan order_url 176 可订购数量为：13
+rh INFO 2018-08-15 15:31:25,852 views_sichuan order_url 176 可订购数量为：13
+rh INFO 2018-08-15 16:03:02,478 views_sichuan order_url 176 可订购数量为：10
+rh INFO 2018-08-15 18:07:19,603 views_sichuan order_url 176 可订购数量为：13
+rh INFO 2018-08-15 18:07:21,666 views_sichuan order_url 176 可订购数量为：13
+rh INFO 2018-08-15 18:07:24,016 views_sichuan order_url 176 可订购数量为：13
+rh INFO 2018-08-15 18:09:51,477 views_sichuan order_url 176 可订购数量为：3
+rh INFO 2018-08-15 18:09:53,502 views_sichuan order_url 176 可订购数量为：3
+rh INFO 2018-08-15 18:09:57,999 views_sichuan order_url 176 可订购数量为：5
+rh INFO 2018-08-15 18:10:33,876 views_sichuan order_url 176 可订购数量为：3

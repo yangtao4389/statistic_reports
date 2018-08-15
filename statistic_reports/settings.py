@@ -14,7 +14,7 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+PRODUCT_KEY = os.path.split(BASE_DIR)[-1]   # statistic_reports
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
@@ -86,22 +86,22 @@ DATABASES = {
     #     'HOST': '211.149.152.172', #正式
     #     'PORT': '3306',
     # },
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'renhe',
-    #     'USER': 'root',
-    #     'PASSWORD': 'rhax-1234',
-    #     'HOST': '211.149.180.119', #测试
-    #     'PORT': '3306',
-    # }
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'baobiao',
+        'NAME': 'renhe',
         'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': '127.0.0.1', #本地
+        'PASSWORD': 'rhax-1234',
+        'HOST': '211.149.180.119', #测试
         'PORT': '3306',
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'baobiao',
+    #     'USER': 'root',
+    #     'PASSWORD': 'root',
+    #     'HOST': '127.0.0.1', #本地
+    #     'PORT': '3306',
+    # }
 }
 
 # Password validation
@@ -145,3 +145,48 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+# 日志信息
+LOG_PATH = "/home/logs/statistic_reports.log"
+if os.name != "posix":
+    LOG_PATH = os.path.join(BASE_DIR,"log")
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': 'rh %(levelname)s %(asctime)s %(module)s %(funcName)s %(lineno)d %(message)s'
+        },
+        'simple': {
+            'format': 'rh %(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler'
+        },
+        'file': {
+            'level': 'DEBUG',
+            # 'class': 'logging.FileHandler',
+            'class':'logging.handlers.RotatingFileHandler',
+            'formatter': 'verbose',
+            'maxBytes':1024*1025*100,#文件大小 5*1024*1024 bytes (5MB)
+            'backupCount': 0,
+            'filename':LOG_PATH,
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins', 'file'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'default': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+
+    }
+}

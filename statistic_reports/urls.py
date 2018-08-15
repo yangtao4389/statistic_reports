@@ -19,4 +19,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('love/', include('love.urls')),
     path('reports/', include('reports.urls')),
+    path('sc_game/', include('sichuan_game.urls')),
 ]

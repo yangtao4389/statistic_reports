@@ -1,4 +1,5 @@
 from django.shortcuts import render,HttpResponse
+import logging
 from .models import Menu,DayReports,CanOrderInfo
 from .common import getmodelfield,isVaildDate,isVaildInt
 from datetime import datetime
@@ -6,6 +7,8 @@ import requests,json
 from scrapy.session_1 import request_session
 from scrapy.selenium_1 import order_selenium
 
+# Get an instance of a logger
+logger = logging.getLogger("default")
 
 # Create your views here.
 VIEW = '四川电信'
@@ -165,12 +168,14 @@ def order_url(request):
     if not isVaildInt(pre_order_num):
         return HttpResponse('订购量出错')
     pre_order_num = int(pre_order_num)
+    logging.info('order_url')
 
-
+    already_order_num = CanOrderInfo.objects.filter(add_time__gte=start_time).filter(add_time__lte=end_time).filter(
+        product_id=product_id).filter(is_order='T').count()
     had_num = CanOrderInfo.objects.filter(add_time__gte=start_time).filter(add_time__lte=end_time).filter(product_id=product_id).filter(is_order='F').count()
+    logger.info('可订购数量为：%s'%had_num)
 
-
-    if had_num < pre_order_num:
+    if had_num+already_order_num < pre_order_num:
         remote_save_url_info(start_time,end_time)  # 线程或者进程开启该应用
         return HttpResponse('当前可订购数量为：{}<br>正在更新数据，请稍后重试<br>如果时间太长，请切换时间再试'.format(had_num))
     # return HttpResponse('更新完毕')

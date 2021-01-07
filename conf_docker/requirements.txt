@@ -8,7 +8,7 @@ cffi==1.11.5
 chardet==3.0.4
 cryptography==2.3
 idna==2.7
-lxml==4.2.3
+lxml==4.6.2
 pip==9.0.3
 pycparser==2.18
 pytz==2018.3
